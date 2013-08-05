@@ -46,6 +46,10 @@
 	background-image: url(../activity/link.svg);
 }
 
+#insertimage{
+	background-image: url(../activity/insert-picture.svg);
+}
+
 body 
 { 
 	background-color: White;
@@ -58,46 +62,39 @@ blockquote {
 	background: #d0f0ff;
 }
 
+
 .wmd-panel
 {
 	width: 48%;
-	min-width: 500px;
 	float: left;
-	margin-left: 21px;
-	margin-top: 11px;
-	
-}
+	margin-left: .8%;
+	margin-top: 1%;
+	/*margin-right: 2%;*/
+	height: 651px;
 
-.wmd-button-bar 
-{
-	width: 100%;
-	background-color: Silver; 
 }
 
 .wmd-input 
 { 
-	height: 670px;
+	height: 100%;
 	width: 100%;
-	background-color: Gainsboro;
-	border: 3px groove black;
-	padding: 3px;
 
+	background-color: Gainsboro;
+	border: 2px groove black; 
 }
 
 .wmd-preview 
 { 
 	background-color: white;
+	position: relative;
+	right: -2%;
 	color: black;
-	height: 670px;
+	height: 650px;
 	padding: 3px;
 	width: 48%;
-	float: right;
-	margin-right: 1%;
-	margin-top: 1%;
+	margin-top: 1.2%;
 	overflow: auto;
-	border-top: 3px groove black;
-	border-right: 3px groove black;
-	border-bottom: 3px groove black;
+	border: 2px groove black;
 }
 
 .wmd-prompt-background

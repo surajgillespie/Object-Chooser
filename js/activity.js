@@ -2,7 +2,7 @@ define(function (require) {
     var activity = require("sugar-web/activity/activity");
 
     require("Markdown.Converter");
-    require("Markdown.Sanitizer");
+    //require("Markdown.Sanitizer");
     require("Markdown.Editor");
 
 
@@ -17,6 +17,9 @@ define(function (require) {
         //to save and resume the contents from datastore.
 
         var datastoreObject = activity.getDatastoreObject();
+        
+        console.log(datastoreObject);
+        console.log(datastoreObject);
 
         inputTextContent.onblur = function () {
             console.log(inputTextContent.value);
@@ -25,45 +28,29 @@ define(function (require) {
             datastoreObject.save(function () {});
         };
 
+        
+            markdownParsing();
+
         datastoreObject.loadAsText(function (error, metadata, data) {
             console.log(metadata);
-            console.log(data);
+            //console.log(data);
             markdowntext = JSON.parse(data);
 
-            console.log(markdowntext);
+            //console.log(markdowntext);
 
             inputTextContent.value = markdowntext;
+            markdownParsing();
+
+            //markdownParsing();//it has to parse only after the input text box has been loaded
         });
-
-        /*
-                var converter1 = Markdown.getSanitizingConverter();
-                
-                converter1.hooks.chain("preBlockGamut", function (text, rbg) {
-                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
-                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
-                    });
-                });
-                
-                var editor1 = new Markdown.Editor(converter1);
-                
-                editor1.run();
-                */
-        var converter2 = new Markdown.Converter();
-
-        /*
-                converter2.hooks.chain("preConversion", function (text) {
-                    return text.replace(/\b(a\w*)/gi, "*$1*");
-                });
-                
-                converter2.hooks.chain("plainLinkText", function (url) {
-                    return "This is a link to " + url.replace(/^https?:\/\//, "");
-                });
-                */
-
-        var help = function () {
+        
+        function markdownParsing()
+        {
+            var converter2 = new Markdown.Converter();
+            var help = function () {
             alert("Do you need help?");
-        }
-        var options = {
+            }
+            var options = {
             helpButton: {
                 handler: help
             },
@@ -71,10 +58,17 @@ define(function (require) {
                 quoteexample: "whatever you're quoting, put it right here"
             }
         };
-        
         var editor2 = new Markdown.Editor(converter2, "-second", options);
 
         editor2.run();
+
+        }
+        
+        
+
+        
+
+        
 
     });
 
