@@ -1,5 +1,6 @@
 define(function (require) {
     var activity = require("sugar-web/activity/activity");
+    var datastore = require("sugar-web/datastore");
 
     require("Markdown.Converter");
     //require("Markdown.Sanitizer");
@@ -35,6 +36,27 @@ define(function (require) {
             inputTextContent.value = markdowntext;
             markdownParsing(); //it has to parse only after the input text box has been loaded
         });
+
+        var journal = document.getElementById("insertimage");
+
+        journal.onclick = function () {
+            activity.showObjectChooser(function (error, result) {
+                result1 = result.toString();
+                var datastoreObject2 = new datastore.DatastoreObject(result1);
+                datastoreObject2.loadAsText(function (error, metadata, data) {
+                    try {
+                        textdata = JSON.parse(data);
+                    } catch (e) {
+                        textdata = data;
+                    }
+
+                    var inputTextContent = document.getElementById("wmd-input-second");
+                    inputTextContent.value += textdata;
+
+                });
+
+            });
+        };
 
         function markdownParsing() {
             var converter2 = new Markdown.Converter();
