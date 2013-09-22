@@ -19,9 +19,6 @@ define(function (require) {
 
         var datastoreObject = activity.getDatastoreObject();
 
-        console.log(datastoreObject);
-        console.log(datastoreObject);
-
         inputTextContent.onblur = function () {
             console.log(inputTextContent.value);
             var jsonData = JSON.stringify((inputTextContent.value).toString());
@@ -51,12 +48,31 @@ define(function (require) {
                     }
 
                     var inputTextContent = document.getElementById("wmd-input-second");
-                    inputTextContent.value += textdata;
-
+                    //inputTextContent.value += textdata;
+                    insertAtCursor(inputTextContent, textdata);
                 });
 
             });
         };
+
+        function insertAtCursor(myField, myValue) {
+            //IE support
+            if (document.selection) {
+                myField.focus();
+                sel = document.selection.createRange();
+                sel.text = myValue;
+            }
+            //MOZILLA and others
+            else if (myField.selectionStart || myField.selectionStart == '0') {
+                var startPos = myField.selectionStart;
+                var endPos = myField.selectionEnd;
+                myField.value = myField.value.substring(0, startPos)
+                    + myValue
+                    + myField.value.substring(endPos, myField.value.length);
+            } else {
+                myField.value += myValue;
+            }
+        }
 
         function markdownParsing() {
             var converter2 = new Markdown.Converter();
